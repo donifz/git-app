@@ -1,22 +1,35 @@
-import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useEffect, useMemo, useRef, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 
 import "./search.css"
 import { getRepos } from "../../Redux/actions"
-import { useDebounce } from "use-debounce"
+import useDebounce from "../../hooks/useDebounce"
+
 
 
 const Search = () => {
+    const [text, setText] = useState("")
     const dispatch = useDispatch()
+    const debouncedText = useDebounce(text, 500)
 
     const handleChange = (e) => {
-        dispatch(getRepos(e.target.value))
+        setText(e.target.value)
+
     }
 
+    useEffect(() => {
+
+        if (debouncedText) {
+            dispatch(getRepos(text))
+        }
+
+
+    }, [debouncedText])
 
     return (
         <div className="search">
             <input onChange={handleChange} type="text" placeholder="Search repository" />
+            <h2>{debouncedText}</h2>
         </div>
     )
 }

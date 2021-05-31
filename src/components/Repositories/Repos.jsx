@@ -4,16 +4,19 @@ import "./repos.css"
 
 const Repos = () => {
 
-    const { repos, errorMsg } = useSelector(state => state.repoReducer)
+    const { repos, errorMsg, loader } = useSelector(state => state.repoReducer)
     if (errorMsg) {
         return <h3>{errorMsg}</h3>
+    }
+    if(loader){
+        return <h3>Searching...</h3>
     }
 
 
     return (
         <div className="repos">
             <div className="repos__body">
-                {repos.length==0?
+                {repos.length===0?
                     <h3>No Datas</h3>
                     :
                     repos.map(item => <Card key={item.id} {...item} />
