@@ -13,12 +13,12 @@ const Repos = () => {
     return (
         <div className="repos">
             <div className="repos__body">
-                {
-                    repos.map(item => {
-                        return <Card key={item.id} {...item} />
-                    })
+                {repos.length==0?
+                    <h3>No Datas</h3>
+                    :
+                    repos.map(item => <Card key={item.id} {...item} />
+                  )
                 }
-
             </div>
         </div>
     )

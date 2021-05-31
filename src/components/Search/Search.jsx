@@ -1,14 +1,20 @@
+import { useState } from "react"
 import { useDispatch } from "react-redux"
 
 import "./search.css"
 import { getRepos } from "../../Redux/actions"
+import { useDebounce } from "use-debounce"
+
 
 const Search = () => {
+    const [text, setText]= useState("")
+    const [debounced] = useDebounce(text, 1000)
+    
     const dispatch = useDispatch()
 
     const handleChange = (e) => {
-        dispatch(getRepos(e.target.value))
-        console.log(e.target.value)
+        setText(e.target.value)
+        dispatch(getRepos(debounced))
     }
 
 

@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { useParams } from "react-router"
+import { Redirect, useParams } from "react-router"
 import axios from "axios"
 import { useSelector } from "react-redux"
 
@@ -7,7 +7,13 @@ import { useSelector } from "react-redux"
 const CardDetail = () => {
     const { id } = useParams()
     const { repos } = useSelector(state => state.repoReducer)
+
+   
+
     const details = repos.find(item => item.id == id)
+    if(!details){
+        return  <Redirect to="/"/>
+      }
 
     return (
         <div>
