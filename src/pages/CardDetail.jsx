@@ -1,17 +1,18 @@
 import { useEffect } from "react"
 import { useParams } from "react-router"
 import axios from "axios"
+import { useSelector } from "react-redux"
 
 
 const CardDetail = () => {
     const { id } = useParams()
-    useEffect(() => {
+    const { repos } = useSelector(state => state.repoReducer)
+    const details = repos.find(item => item.id == id)
 
-
-    }, [])
     return (
         <div>
-            <h3>{id}</h3>
+            <h3>Stargazers_count: {details.stargazers_count}</h3>
+            <h3>Watchers_count: {details.watchers_count}</h3>
 
         </div>
     )
