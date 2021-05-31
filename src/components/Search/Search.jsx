@@ -7,14 +7,10 @@ import { useDebounce } from "use-debounce"
 
 
 const Search = () => {
-    const [text, setText]= useState("")
-    const [debounced] = useDebounce(text, 1000)
-    
     const dispatch = useDispatch()
 
     const handleChange = (e) => {
-        setText(e.target.value)
-        dispatch(getRepos(debounced))
+        dispatch(getRepos(e.target.value))
     }
 
 
